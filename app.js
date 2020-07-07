@@ -9,9 +9,16 @@ function DrawingCanvas(id, w, h){
   const btnSave = document.getElementById('jsSave');
   
   const INIT_COLOR = '#2c2c2c';
-  const CANVAS_WIDTH = w;
-  const CANVAS_HEIGHT = h;
-  
+  let CANVAS_WIDTH;
+  let CANVAS_HEIGHT;
+  if(window.innerWidth < 768){
+    console.log('mobile');
+    CANVAS_WIDTH = window.innerWidth - 30;
+    CANVAS_HEIGHT = 500;
+  } else {
+    CANVAS_WIDTH = w;
+    CANVAS_HEIGHT = h;
+  }
   canvas.width = CANVAS_WIDTH;
   canvas.height = CANVAS_HEIGHT;
   
@@ -54,8 +61,8 @@ function DrawingCanvas(id, w, h){
     event.preventDefault();
     var touches = event.changedTouches;
     console.log(touches[0]);
-    const x = touches[0].pageX;
-    const y = touches[0].pageY;
+    const x = touches[0].pageX - 15;
+    const y = touches[0].pageY - 15;
     ctx.lineTo(x, y);
     ctx.stroke();
   }
@@ -147,6 +154,10 @@ function DrawingCanvas(id, w, h){
   
   if(btnSave){
     btnSave.addEventListener('click', handleSaveClick);
+  }
+
+  this.setWidth = function(w){
+    canvas.width = w;
   }
 }
 
