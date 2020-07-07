@@ -14,22 +14,29 @@
     </div>
     <div class="controlsW">
       <div class="controlRange">
-        <input type="range" id="jsRange" min="0.1" max="5.0" value="2.5" step="0.1">
+        <label for="jsRange" class="rangeLabel">brush size <span class="icoBrushSize" id="icoBrushSize"></span></label>
+        <input type="range" id="jsRange" min="0.1" max="10.0" value="5.0" step="0.1">
       </div>
       <div class="controlsBtns">
         <button id="jsMode">Fill</button>
         <button id="jsSave">Save</button>
       </div>
-      <div class="controlsColors" id="jsColors">
-        <button class="controlColor jsColor" style="background-color:#2c2c2c;"></button>
-        <button class="controlColor jsColor" style="background-color:#fff;"></button>
-        <button class="controlColor jsColor" style="background-color:#ff3b30;"></button>
-        <button class="controlColor jsColor" style="background-color:#ff9500;"></button>
-        <button class="controlColor jsColor" style="background-color:#ffcc00;"></button>
-        <button class="controlColor jsColor" style="background-color:#4cd963;"></button>
-        <button class="controlColor jsColor" style="background-color:#5ac8fa;"></button>
-        <button class="controlColor jsColor" style="background-color:#0579ff;"></button>
-        <button class="controlColor jsColor" style="background-color:#5856d6;"></button>
+      <div class="controlsColors">
+        <div class="colorCustomW">
+          <input type="color" class="colorCustom" id="colorCustom" value="#2c2c2c">
+        </div>
+        <div class="colorPalette" id="jsColors">
+          <button class="controlColor jsColor" style="background-color:#2c2c2c;"></button>
+          <button class="controlColor jsColor" style="background-color:#fff;"></button>
+          <button class="controlColor jsColor" style="background-color:#ff3b30;"></button>
+          <button class="controlColor jsColor" style="background-color:#ff9500;"></button>
+          <button class="controlColor jsColor" style="background-color:#ffcc00;"></button>
+          <button class="controlColor jsColor" style="background-color:#4cd963;"></button>
+          <button class="controlColor jsColor" style="background-color:#5ac8fa;"></button>
+          <button class="controlColor jsColor" style="background-color:#0579ff;"></button>
+          <button class="controlColor jsColor" style="background-color:#5856d6;"></button>
+        </div>
+        
       </div>
     </div>
   </div>

@@ -2,7 +2,9 @@ function DrawingCanvas(id, w, h){
   const canvas = document.getElementById(id);
   const ctx = canvas.getContext('2d');
   const colors = document.getElementsByClassName('jsColor');
+  const colorCustom = document.getElementById('colorCustom');
   const range = document.getElementById('jsRange');
+  const brushSize = document.getElementById('icoBrushSize');
   const mode = document.getElementById('jsMode');
   const btnSave = document.getElementById('jsSave');
   
@@ -17,7 +19,7 @@ function DrawingCanvas(id, w, h){
   ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
   ctx.strokeStyle = INIT_COLOR;
   ctx.fillStyle = INIT_COLOR;
-  ctx.lineWidth = 2.5;
+  ctx.lineWidth = 5.0;
   
   let painting = false;
   let filling = false;
@@ -41,6 +43,28 @@ function DrawingCanvas(id, w, h){
       ctx.stroke();
     }
   }
+
+  function onTouchStart(event){
+    event.preventDefault();
+    ctx.beginPath();
+    painting = true;
+  }
+
+  function onTouchMove(event){
+    event.preventDefault();
+    var touches = event.changedTouches;
+    console.log(touches[0]);
+    const x = touches[0].pageX;
+    const y = touches[0].pageY;
+    ctx.lineTo(x, y);
+    ctx.stroke();
+  }
+
+  function onTouchEnd(event){
+    event.preventDefault();
+    ctx.closePath();
+    painting = false;
+  }
   
   function onMouseDown(event){
     painting = true;
@@ -48,6 +72,13 @@ function DrawingCanvas(id, w, h){
   
   function handleColorClick(event){
     const color = event.target.style.backgroundColor;
+    colorCustom.value = rgb2hex(color);
+    var evnt = new Event('input');
+    colorCustom.dispatchEvent(evnt);;
+  }
+
+  function handleCustomColor(event){
+    const color = event.target.value;
     ctx.strokeStyle = color;
     ctx.fillStyle = color;
   }
@@ -55,6 +86,7 @@ function DrawingCanvas(id, w, h){
   function handleRangeChange(event){
     const size = event.target.value
     ctx.lineWidth = size;
+    brushSize.setAttribute('style', 'width:' + size + 'px; height:' + size + 'px;');
   }
   
   function handleModeClick(){
@@ -93,9 +125,17 @@ function DrawingCanvas(id, w, h){
     canvas.addEventListener('mouseleave', stopPainting);
     canvas.addEventListener('click', handleCanvasClick);
     canvas.addEventListener('contextmenu', handleCM);
+
+    canvas.addEventListener('touchstart', onTouchStart);
+    canvas.addEventListener('touchmove', onTouchMove);
+    canvas.addEventListener('touchend', onTouchEnd);
   }
   
   Array.from(colors).forEach(color => color.addEventListener('click', handleColorClick));
+
+  if(colorCustom){
+    colorCustom.addEventListener('input', handleCustomColor);
+  }
   
   if(range){
     range.addEventListener('input', handleRangeChange);
@@ -110,4 +150,10 @@ function DrawingCanvas(id, w, h){
   }
 }
 
-var drawCanvas = new DrawingCanvas('paintJsCanvas', 700, 700);
+function rgb2hex(orig){
+  var rgb = orig.replace(/\s/g,'').match(/^rgba?\((\d+),(\d+),(\d+)/i);
+  return (rgb && rgb.length === 4) ? "#" +
+   ("0" + parseInt(rgb[1],10).toString(16)).slice(-2) +
+   ("0" + parseInt(rgb[2],10).toString(16)).slice(-2) +
+   ("0" + parseInt(rgb[3],10).toString(16)).slice(-2) : orig;
+ }
