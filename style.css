@@ -43,12 +43,12 @@ body {line-height:1; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 
 
 .wrap {display:flex; padding-top:50px; flex-direction:column; align-items:center;}
 
-.canvas01 {width:700px; height:700px; border-radius:15px; background:#fff; box-shadow:0 4px 6px rgba(50, 50, 93, 0.11);}
+.container {width:700px;}
+.canvas01 {width:100%; height:700px; border-radius:15px; background:#fff; box-shadow:0 4px 6px rgba(50, 50, 93, 0.11);}
 
 .controlsW {display:flex; padding-bottom:50px; margin-top:50px; flex-direction:column; align-items:center;}
 
 .controlsBtns {margin-top:20px;}
-.controlsBtns button {all:unset; min-width:80px; padding:10px 20px; font-weight:600; border-radius:10px; border:1px solid #ddd; background-color:#fff; color:#333; text-align:center; cursor:pointer; box-shadow:0 4px 6px rgba(50, 50, 93, 0.11);}
 
 .controlsColors {margin-top:30px}
 .controlsColors .colorCustomW {text-align:center;}
@@ -56,12 +56,24 @@ body {line-height:1; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 
 .controlsColors .colorPalette {display:flex; padding-top:20px;}
 .controlsColors .controlColor {width:50px; height:50px; margin:0 5px; border-radius:50%; border:0; cursor:pointer; box-shadow:0 4px 6px rgba(50, 50, 93, 0.11); outline:0;}
 
-.controlRange .rangeLabel {display:block; padding-bottom:10px; text-align:center;}
+.controlRange .rangeLabel {display:inline-block; text-align:center;}
 .controlRange .rangeLabel .icoBrushSize {display:inline-block; width:5px; height:5px; border-radius:50%; background:#555; vertical-align:middle;}
+.controlRange input[type="range"] {vertical-align:middle;}
+
+.btn01 {all:unset; min-width:80px; padding:10px 20px; font-weight:600; border-radius:10px; border:1px solid #ddd; background-color:#fff; color:#333; text-align:center; cursor:pointer; box-shadow:0 4px 6px rgba(50, 50, 93, 0.11);}
+.btn01.on {border-color:#0579ff; background:#0579ff; color:#fff; box-shadow:0 5px 8px rgba(50, 50, 93, 0.52);}
+
+.txtR {text-align:right;}
+
+.mT10 {margin-top:10px;}
+.mR5 {margin-right:5px;}
 
 @media (max-width: 767px){
 	.wrap {padding-top:20px;}
-	.canvas01 {width:calc(100% - 30px); height:500px; margin-left:15px;}
+	.canvas01 {width:100%; height:500px;}
+	.container {width:calc(100% - 30px);}
 
+	.controlsColors {padding:0 15px;}
 	.controlsColors .colorPalette {flex-wrap:wrap;}
+	.controlsColors .controlColor {margin-top:5px;}
 }

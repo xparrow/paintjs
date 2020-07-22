@@ -5,14 +5,15 @@ function DrawingCanvas(id, w, h){
   const colorCustom = document.getElementById('colorCustom');
   const range = document.getElementById('jsRange');
   const brushSize = document.getElementById('icoBrushSize');
-  const mode = document.getElementById('jsMode');
+  const brushControls = document.getElementsByClassName('btnBrushCont');
+  const btnBrush = document.getElementById('jsBrush');
+  const btnFill = document.getElementById('jsFill');
   const btnSave = document.getElementById('jsSave');
   
   const INIT_COLOR = '#2c2c2c';
   let CANVAS_WIDTH;
   let CANVAS_HEIGHT;
   if(window.innerWidth < 768){
-    console.log('mobile');
     CANVAS_WIDTH = window.innerWidth - 30;
     CANVAS_HEIGHT = 500;
   } else {
@@ -96,13 +97,14 @@ function DrawingCanvas(id, w, h){
     brushSize.setAttribute('style', 'width:' + size + 'px; height:' + size + 'px;');
   }
   
-  function handleModeClick(){
-    if(filling === true){
+  function handleBrushControlClick(evt){
+    Array.from(brushControls).forEach(brush => brush.classList.remove('on'));
+    if(evt.currentTarget.id == 'jsBrush'){
+      btnBrush.classList.add('on');
       filling = false;
-      mode.innerText = 'Fill';
-    } else {
+    } else if(evt.currentTarget.id == 'jsFill') {
+      btnFill.classList.add('on');
       filling = true;
-      mode.innerText = 'Paint';
     }
   }
   
@@ -148,8 +150,8 @@ function DrawingCanvas(id, w, h){
     range.addEventListener('input', handleRangeChange);
   }
   
-  if(mode){
-    mode.addEventListener('click', handleModeClick);
+  if(brushControls){
+    Array.from(brushControls).forEach(brush => brush.addEventListener('click', handleBrushControlClick));
   }
   
   if(btnSave){
@@ -167,4 +169,16 @@ function rgb2hex(orig){
    ("0" + parseInt(rgb[1],10).toString(16)).slice(-2) +
    ("0" + parseInt(rgb[2],10).toString(16)).slice(-2) +
    ("0" + parseInt(rgb[3],10).toString(16)).slice(-2) : orig;
- }
+}
+
+function MouseCursorMove(cursorId){
+  const cursor = document.getElementById(cursorId);
+  const links = document.querySelectorAll('a');
+
+  function moveMouse(e){
+    const x = e.clientX;
+    const y = e.clientY;
+
+    cursor.style.transform = 'translate(' + (x - 15) + 'px, ' + (y - 15) + 'px)';
+  }
+}
